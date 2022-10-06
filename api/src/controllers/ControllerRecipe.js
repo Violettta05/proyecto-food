@@ -10,7 +10,7 @@ const getApiInfo = async () => {
   if (lengthdata.length < 100) {
     const urlApi = await axios.get(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
-    );//revisar readme si la api se puede guardar en la base de datos
+    );
      const dataApi = urlApi.data.results;
       dataApi.map(async (el) => {
        await Recipe.create({

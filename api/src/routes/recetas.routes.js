@@ -45,18 +45,7 @@ router.get('/all', async (req, res) => {
   await getDbinfo();
    const recipeTotal = await Recipe.findByPk(id)
    return res.json(recipeTotal)
-//  console.log(recipeTotal)
-   
-//   if (id)
-//  {
-//     let recipeId = await recipeTotal.filter((el) => el.id === id);
-//     console.log(recipeId)
-   
-//     return  recipeId.length
-//    ? res.status(200).json(recipeId)
-//       : res.status(200).send('No se Encontro Receta con el id: ' + id);
-//   }
-//   return res.status(400).send(recipeTotal); 
+
 
 });
 
@@ -66,6 +55,16 @@ router.get('/all', async (req, res) => {
 router.post('/', async (req, res) => {
   const { name, summary, healthScore, stepbyStep, image, createIndb, diet } =
     req.body;
+    console.log('name', name)
+    console.log('summary', summary)
+
+    console.log('healthScore', healthScore)
+    console.log('stepbyStep', stepbyStep)
+    console.log('image', image)
+    console.log('createIndb', createIndb)
+    console.log('diet', diet)
+    
+
   if (!name || !summary) {
     res.status(404).send('los Datos name y summary son requeridos');
   } else {
@@ -77,14 +76,15 @@ router.post('/', async (req, res) => {
         healthScore,
         stepbyStep,
         image,
+        dieta:diet.join(', '),
         createIndb,
       });
-      let dietDb = await Diet.findAll({
-        where: {
-          name: diet,
-        },
-      });
-      recipeCreated.addDiet(dietDb); // agrego la dieta al modelo Recipe
+      // let dietDb = await Diet.findAll({
+      //   where: {
+      //     name: diet,
+      //   },
+      // });
+      // recipeCreated.addDiet(dietDb); // agrego la dieta al modelo Recipe
       res.send('Receta Creada con exito');
     } catch (error) {
       res.status(404).send(error + 'Error al crear la Receta');

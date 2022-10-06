@@ -44,7 +44,9 @@ export const getAllrecipes = () => {
 export function postAddRecipes(payload) {
   return function () {
     return axios
-      .post('/recipes', payload)
+      .post('/recipes', {
+       data:payload
+      })
       .then((json) => {
         alert('Receta Creada Exitosa');
       })
